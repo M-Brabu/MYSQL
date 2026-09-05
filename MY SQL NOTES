@@ -109,5 +109,125 @@ WHERE condition
 ORDER BY column ASC/DESC
 LIMIT n;
 -----------------------------------------------------------------------------------------------------------
-day 2 : ()
+day 2 : (05-09-2026)
+
+1. DISTINCT
+
+Used to remove duplicate values/rows from the selected result.
+
+SELECT DISTINCT department
+FROM students;
+
+Example:
+
+CSE
+ECE
+CSE
+IT
+
+becomes:
+
+CSE
+ECE
+IT
+With multiple columns
+SELECT DISTINCT department, age
+FROM students;
+
+DISTINCT checks the combination of selected columns.
+
+2. NULL
+
+NULL means missing / unknown value.
+
+It is NOT the same as:
+
+0       → zero
+''      → empty string
+'NULL'  → text "NULL"
+NULL    → missing/unknown
+Check for NULL
+
+❌ Don't use:
+
+WHERE phone = NULL;
+
+✅ Use:
+
+SELECT *
+FROM students
+WHERE phone IS NULL;
+Check for non-NULL
+SELECT *
+FROM students
+WHERE phone IS NOT NULL;
+3. Aggregate Functions
+
+Used to perform calculations on multiple rows.
+
+COUNT() → count
+SUM()   → total
+AVG()   → average
+MIN()   → smallest
+MAX()   → largest
+COUNT()
+SELECT COUNT(*)
+FROM employees;
+COUNT(*)      → counts all rows
+COUNT(column) → counts non-NULL values
+SUM()
+SELECT SUM(salary)
+FROM employees;
+
+→ Total salary.
+
+AVG()
+SELECT AVG(salary)
+FROM employees;
+
+→ Average salary.
+
+MIN()
+SELECT MIN(salary)
+FROM employees;
+
+→ Lowest salary.
+
+MAX()
+SELECT MAX(salary)
+FROM employees;
+
+→ Highest salary.
+
+4. AS — Alias
+
+Used to rename the output column.
+
+SELECT MAX(salary) AS highest_salary
+FROM employees;
+
+General pattern:
+
+SELECT expression AS alias
+FROM table;
+🧠 Quick Revision
+DISTINCT → remove duplicates
+
+NULL → missing/unknown value
+
+IS NULL → find NULL values
+IS NOT NULL → find non-NULL values
+
+COUNT → How many?
+SUM   → Total?
+AVG   → Average?
+MIN   → Lowest?
+MAX   → Highest?
+
+AS → Rename output
+⭐ Most important distinction
+COUNT(*)       → all rows
+COUNT(column)  → non-NULL values only
+-----------------------------------------------------------------------------------------------------------
+3)day 3 ()
 -----------------------------------------------------------------------------------------------------------
