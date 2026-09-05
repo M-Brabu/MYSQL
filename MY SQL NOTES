@@ -161,6 +161,24 @@ Check for non-NULL
 SELECT *
 FROM students
 WHERE phone IS NOT NULL;
+
+You can insert:
+
+INSERT INTO students
+VALUES (1, 'Brabu', 21, NULL, 'CSE');
+
+Here:
+
+id	name	age	phone	department
+1	Brabu	21	NULL	CSE
+
+So phone has no value.
+
+2. Important: Don't use quotes ❌
+'NULL'
+
+This is not NULL. It is just the text "NULL".
+
 3. Aggregate Functions
 
 Used to perform calculations on multiple rows.
