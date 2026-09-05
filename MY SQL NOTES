@@ -37,11 +37,13 @@ TIME         → Time
 DATETIME     → Date + Time
 TIMESTAMP    → Date + Time
 JSON         → JSON data
-
+ENUM         -> Enumeration 
 Remember:
 
 VARCHAR(50) → actual storage varies with value length
 CHAR(50)    → fixed-width field
+create table students(id INT , name varchar(20), gender ENUM('MALE','FEMALE') , phone);
+----->insert into students values(1,'aditya','MALE' ,NULL) 
 5. WHERE — Filtering
 SELECT *
 FROM students
