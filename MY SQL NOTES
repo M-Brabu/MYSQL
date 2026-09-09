@@ -391,5 +391,191 @@ GROUP BY department;
 
 is usually a good choice when counting employees.
 -----------------------------------------------------------------------------------------------------------
-day 4 ()
+day 4 (9-9-2026):
+📘 MySQL — Lesson 8: HAVING
+1. What is HAVING?
+
+HAVING is used to filter groups created by GROUP BY.
+
+Basic syntax
+SELECT column, AGGREGATE_FUNCTION(column)
+FROM table
+GROUP BY column
+HAVING condition;
+
+Example:
+
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 1;
+
+Meaning:
+
+Show only departments having more than 1 employee.
+
+2. WHERE vs HAVING ⭐
+
+This is the most important concept in this lesson.
+
+WHERE → filters rows
+SELECT *
+FROM employees
+WHERE salary > 30000;
+
+It checks individual employees.
+
+HAVING → filters groups
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 1;
+
+It checks groups/departments.
+
+🧠 Easy memory
+WHERE  → Filter ROWS
+HAVING → Filter GROUPS
+3. GROUP BY + HAVING + COUNT
+
+Find departments having more than 1 employee:
+
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 1;
+4. GROUP BY + HAVING + SUM
+
+Find departments whose total salary is greater than 70,000:
+
+SELECT department, SUM(salary)
+FROM employees
+GROUP BY department
+HAVING SUM(salary) > 70000;
+5. GROUP BY + HAVING + AVG
+
+Find departments whose average salary is greater than 40,000:
+
+SELECT department, AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 40000;
+6. WHERE + GROUP BY + HAVING ⭐
+
+You can use all three together.
+
+Example:
+
+Find departments having more than 1 employee, considering only employees whose salary is greater than 30,000.
+
+SELECT department, COUNT(*)
+FROM employees
+WHERE salary > 30000
+GROUP BY department
+HAVING COUNT(*) > 1;
+How it works
+WHERE salary > 30000
+        ↓
+Filter individual rows
+        ↓
+GROUP BY department
+        ↓
+Create department groups
+        ↓
+COUNT(*)
+        ↓
+Count employees in each group
+        ↓
+HAVING COUNT(*) > 1
+        ↓
+Filter the groups
+7. Important Difference
+Clause	Used for	Example
+WHERE	Filter rows	salary > 30000
+GROUP BY	Create groups	GROUP BY department
+HAVING	Filter groups	COUNT(*) > 1
+Example
+SELECT department, COUNT(*)
+FROM employees
+WHERE salary > 30000
+GROUP BY department
+HAVING COUNT(*) > 1;
+
+Think:
+
+salary > 30000
+      ↓
+    WHERE
+      ↓
+department
+      ↓
+  GROUP BY
+      ↓
+COUNT(*)
+      ↓
+   HAVING
+      ↓
+COUNT(*) > 1
+8. SQL Clause Order
+
+For what you've learned so far:
+
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+LIMIT
+
+Example:
+
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+WHERE salary > 30000
+GROUP BY department
+HAVING AVG(salary) > 40000
+ORDER BY avg_salary DESC
+LIMIT 3;
+
+Don't worry about advanced execution details yet. Just remember the query-writing order.
+
+⭐ Quick Revision
+WHERE
+→ Filters individual rows
+
+GROUP BY
+→ Creates groups
+
+HAVING
+→ Filters groups
+
+COUNT()
+→ Number of rows
+
+SUM()
+→ Total
+
+AVG()
+→ Average
+
+MIN()
+→ Lowest
+
+MAX()
+→ Highest
+🔥 Golden Rule
+
+If the condition is about an individual row → WHERE.
+
+If the condition is about an aggregate/group → HAVING.
+
+Example:
+
+salary > 30000     → WHERE
+COUNT(*) > 1       → HAVING
+AVG(salary) > 40000 → HAVING
+SUM(salary) > 70000 → HAVING
 ___________________________________________________________________________________________________________
+day 5()
+_____________________________________________________________________________________________________________
