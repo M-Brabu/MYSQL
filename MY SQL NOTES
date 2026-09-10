@@ -577,5 +577,56 @@ COUNT(*) > 1       → HAVING
 AVG(salary) > 40000 → HAVING
 SUM(salary) > 70000 → HAVING
 ___________________________________________________________________________________________________________
-day 5()
+day 5 (10-09-2026)
+MySQL — JOINs 📌
+What is JOIN?
+
+JOIN combines data from two or more related tables.
+
+Tables are usually connected using a common column, often a Primary Key and Foreign Key.
+
+Basic Syntax
+SELECT columns
+FROM table1
+JOIN table2
+ON table1.column = table2.column;
+Types of JOIN
+JOIN	Meaning
+INNER JOIN	Only matching rows from both tables
+LEFT JOIN	All rows from left + matching rows from right
+RIGHT JOIN	All rows from right + matching rows from left
+FULL OUTER JOIN	All rows from both tables
+CROSS JOIN	Every possible combination
+SELF JOIN	A table joined with itself
+INNER JOIN ⭐
+SELECT s.name, d.department_name
+FROM students s
+INNER JOIN departments d
+ON s.department_id = d.department_id;
+
+No match → row is removed.
+
+LEFT JOIN ⭐
+SELECT s.name, d.department_name
+FROM students s
+LEFT JOIN departments d
+ON s.department_id = d.department_id;
+
+No match → right-side columns become NULL.
+
+🧠 Easy Memory
+INNER → Matching only
+LEFT  → Everything on LEFT
+RIGHT → Everything on RIGHT
+FULL  → Everything
+CROSS → Every combination
+SELF  → Same table
+Important
+JOIN → which tables to combine
+ON   → how they are connected
+WHERE → filter rows
+GROUP BY → create groups
+HAVING → filter groups
+_____________________________________________________________________________________________________________
+day 6 ()
 _____________________________________________________________________________________________________________
