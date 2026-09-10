@@ -577,7 +577,7 @@ COUNT(*) > 1       → HAVING
 AVG(salary) > 40000 → HAVING
 SUM(salary) > 70000 → HAVING
 ___________________________________________________________________________________________________________
-day 5 (10-09-2026)
+day 5 (10-09-2026) joins theroy
 MySQL — JOINs 📌
 What is JOIN?
 
@@ -627,6 +627,112 @@ ON   → how they are connected
 WHERE → filter rows
 GROUP BY → create groups
 HAVING → filter groups
+
+inner join :
+
+# MySQL — INNER JOIN Practical Notes
+### 1. Basic INNER JOIN
+**Purpose:** Get only matching rows from both tables.
+```sql
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.column = table2.column;
+```
+### 2. Example
+```sql
+SELECT s.name, d.department_name
+FROM students s
+INNER JOIN departments d
+ON s.department_id = d.department_id;
+```
+
+**Meaning:** Match students with their departments using `department_id`.
+---
+### 3. INNER JOIN + WHERE
+
+Use `WHERE` to filter the joined result.
+
+```sql
+SELECT s.name
+FROM students s
+INNER JOIN departments d
+ON s.department_id = d.department_id
+WHERE d.department_name = 'CSE';
+```
+
+**Meaning:** Find students belonging to CSE.
+
+---
+
+### 4. INNER JOIN + IN
+
+```sql
+SELECT s.name
+FROM students s
+INNER JOIN departments d
+ON s.department_id = d.department_id
+WHERE d.department_name IN ('CSE', 'ECE');
+```
+
+**Meaning:** Find students from CSE or ECE.
+
+### 5. INNER JOIN + GROUP BY + COUNT
+
+```sql
+SELECT d.department_name, COUNT(s.name)
+FROM students s
+INNER JOIN departments d
+ON s.department_id = d.department_id
+GROUP BY d.department_name;
+```
+
+**Meaning:** Count students in each department.
+
+---
+
+### 🧠 Important Points
+
+```text
+INNER JOIN → matching rows only
+ON         → tells how tables are connected
+WHERE      → filters rows
+GROUP BY   → creates groups
+COUNT()    → counts rows/values
+```
+
+### Easy Pattern
+
+```text
+FROM
+  ↓
+JOIN
+  ↓
+ON
+  ↓
+WHERE
+  ↓
+GROUP BY
+  ↓
+HAVING
+```
+
+### ⭐ Remember
+
+If there is **no matching row** in the other table:
+
+**INNER JOIN → row is removed.**
+
+Also, SQL uses:
+
+```sql
+=
+```
+
+not:
+
+```sql
+==
 _____________________________________________________________________________________________________________
 day 6 ()
 _____________________________________________________________________________________________________________
