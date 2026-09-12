@@ -734,5 +734,173 @@ not:
 ```sql
 ==
 _____________________________________________________________________________________________________________
-day 6 ()
+day 6 (12-09-2026)
+# MySQL — Lesson 10: LEFT JOIN
+
+### 1. What is LEFT JOIN?
+
+`LEFT JOIN` returns:
+
+* **All rows from the LEFT table**
+* Matching rows from the RIGHT table
+* If there is no match → RIGHT table columns become `NULL`
+
+### 2. Basic Syntax
+
+```sql
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.column = table2.column;
+```
+
+### 3. Example
+
+```sql
+SELECT s.name, d.department_name
+FROM students s
+LEFT JOIN departments d
+ON s.department_id = d.department_id;
+```
+
+`students` is the **LEFT table**, so every student is included.
+
+---
+
+### 4. Find records with NO match
+
+```sql
+SELECT s.name
+FROM students s
+LEFT JOIN departments d
+ON s.department_id = d.department_id
+WHERE d.department_id IS NULL;
+```
+
+**Meaning:** Find students who don't have a matching department.
+
+### 5. Find departments with ZERO students
+
+Here, `departments` must be the LEFT table because we want **every department**, including departments with no students.
+
+```sql
+SELECT d.department_name, COUNT(s.id)
+FROM departments d
+LEFT JOIN students s
+ON d.department_id = s.department_id
+GROUP BY d.department_name;
+```
+
+Result:
+
+```text
+CSE → 2
+ECE → 1
+IT  → 0
+```
+
+### 6. Why `COUNT(s.id)`?
+
+If IT has no student:
+
+```text
+IT → s.id = NULL
+```
+
+`COUNT(s.id)` ignores `NULL`.
+
+Therefore:
+
+```text
+COUNT(s.id) = 0
+```
+
+### 7. Find ONLY departments with zero students
+
+```sql
+SELECT d.department_name
+FROM departments d
+LEFT JOIN students s
+ON d.department_id = s.department_id
+GROUP BY d.department_name
+HAVING COUNT(s.id) = 0;
+```
+
+### ⚠️ Important: WHERE vs HAVING
+
+```text
+WHERE  → filters rows
+HAVING → filters groups
+```
+
+So:
+
+```sql
+WHERE s.id IS NULL
+```
+
+can find unmatched rows.
+
+But:
+
+```sql
+HAVING COUNT(s.id) = 0
+```
+
+finds groups having zero matching rows.
+
+### 8. COUNT(*) vs COUNT(s.id)
+
+With a `LEFT JOIN`:
+
+```sql
+COUNT(*)
+```
+
+can return **1** even when there is no matching student.
+
+sql
+COUNT(s.id)
+
+returns **0** because `s.id` is `NULL`.
+
+So when counting matching students with `LEFT JOIN`, prefer:
+
+```sql
+COUNT(s.id)
+```
+
+### 🧠 Quick Revision
+
+```text
+LEFT JOIN → keep everything from LEFT table
+
+No match → RIGHT columns become NULL
+
+No matching student:
+s.id = NULL
+
+COUNT(s.id) → ignores NULL → 0
+
+Zero students → HAVING COUNT(s.id) = 0
+
+WHERE → rows
+GROUP BY → groups
+HAVING → groups after grouping
+```
+
+### ⭐ Interview Pattern
+
+**"Find departments with no students"**
+
+Think immediately:
+text
+LEFT JOIN
+   ↓
+GROUP BY
+   ↓
+HAVING COUNT(student_id) = 0
+
+_____________________________________________________________________________________________________________
+day 7():
 _____________________________________________________________________________________________________________
