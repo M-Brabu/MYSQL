@@ -914,5 +914,183 @@ GROUP BY
 HAVING COUNT(student_id) = 0
 
 _____________________________________________________________________________________________________________
-day 7():
-_____________________________________________________________________________________________________________
+day 7(14-09-2026):
+# MySQL — Lesson 11: RIGHT JOIN
+
+### 1. What is RIGHT JOIN?
+
+`RIGHT JOIN` returns:
+
+* **All rows from the RIGHT table**
+* Matching rows from the LEFT table
+* If there is no match → LEFT table columns become `NULL`
+
+### 2. Basic Syntax
+
+```sql
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+```
+
+### 3. Example
+
+```sql
+SELECT d.department_name, s.name
+FROM students s
+RIGHT JOIN departments d
+ON s.department_id = d.department_id;
+```
+
+Here:
+
+```text
+students    → LEFT table
+departments → RIGHT table
+```
+
+So **all departments** are returned.
+
+If a department has no student:
+
+```text
+IT → s.name = NULL
+```
+
+### 4. RIGHT JOIN + IS NULL
+
+To find departments with no students:
+
+```sql
+SELECT d.department_name
+FROM students s
+RIGHT JOIN departments d
+ON s.department_id = d.department_id
+WHERE s.id IS NULL;
+```
+
+This directly finds unmatched departments.
+
+### 5. RIGHT JOIN + GROUP BY
+
+Another way:
+
+```sql
+SELECT d.department_name, COUNT(s.id)
+FROM students s
+RIGHT JOIN departments d
+ON s.department_id = d.department_id
+GROUP BY d.department_name;
+```
+
+Result:
+
+```text
+CSE → 2
+ECE → 1
+IT  → 0
+```
+
+### 6. Find Departments With Zero Students
+
+```sql
+SELECT d.department_name
+FROM students s
+RIGHT JOIN departments d
+ON s.department_id = d.department_id
+GROUP BY d.department_name
+HAVING COUNT(s.id) = 0;
+```
+
+### ⚠️ Important
+
+`COUNT(s.id)` does **not** return `NULL`.
+
+When `s.id` is `NULL`:
+
+```text
+COUNT(s.id) → 0
+```
+
+Therefore:
+
+```sql
+HAVING COUNT(s.id) = 0
+```
+
+❌ Not:
+
+```sql
+HAVING COUNT(s.id) IS NULL
+```
+
+### 7. LEFT JOIN vs RIGHT JOIN
+
+| JOIN       | Keeps everything from |
+| ---------- | --------------------- |
+| LEFT JOIN  | LEFT table            |
+| RIGHT JOIN | RIGHT table           |
+
+Example:
+
+```sql
+FROM departments d
+LEFT JOIN students s
+```
+
+→ keeps all departments.
+
+```sql
+FROM students s
+RIGHT JOIN departments d
+```
+
+→ also keeps all departments.
+
+These can produce the same result when the tables and join condition are reversed.
+
+### 🧠 Quick Revision
+
+```text
+LEFT JOIN  → keep LEFT
+RIGHT JOIN → keep RIGHT
+
+No match → NULL
+
+COUNT(column) ignores NULL
+
+Zero matching rows → COUNT(column) = 0
+
+WHERE s.id IS NULL
+→ find unmatched rows
+
+HAVING COUNT(s.id) = 0
+→ find groups with zero matches
+```
+
+### ⭐ Placement Pattern
+
+**"Find departments with no students"**
+
+Think:
+
+```text
+RIGHT JOIN
+    ↓
+WHERE s.id IS NULL
+```
+
+OR, when grouping:
+
+```text
+RIGHT JOIN
+    ↓
+GROUP BY
+    ↓
+HAVING COUNT(s.id) = 0
+```
+
+____________________________________________________________________________________________________________________________
+day 8 :()
+_____________________________________________________________________________________________________________________________
