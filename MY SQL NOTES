@@ -1092,5 +1092,26 @@ HAVING COUNT(s.id) = 0
 ```
 
 ____________________________________________________________________________________________________________________________
-day 8 :()
+day 8 :(27-9-2026)
+If in sql :
+IF(condition, value_if_true, value_if_false)
+SELECT *,IF(x + y > z AND x + z > y AND y + z > x, "Yes","No") AS triangle FROM triangle;
+
+case in sql:
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ELSE result3
+END
+SELECT *,
+       CASE
+           WHEN x + y > z
+            AND x + z > y
+            AND y + z > x
+           THEN 'Yes'
+           ELSE 'No'
+       END AS triangle
+FROM triangle;
 _____________________________________________________________________________________________________________________________
+day 9 :()
+______________________________________________________________________________________________________________________________
